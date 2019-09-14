@@ -1,3 +1,3 @@
-# Apple Pay Test
+# Apple and Google Pay Testing
 
-Testing Apple Pay payment with Stripe
+Testing Apple Pay and Google Pay payment with Stripe
