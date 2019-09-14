@@ -1025,6 +1025,7 @@
 </head>
 
 <body>
+
   <div class="globalContent">
     <main>
       <div class="stripes">
@@ -1095,7 +1096,7 @@
                   <div id="example5-card" class="input"></div>
                 </div>
               </div>
-              <button type="submit" data-tid="elements_examples.form.pay_button">Pay $1</button>
+              <button type="submit" data-tid="elements_examples.form.pay_button">Pay $10</button>
             </fieldset>
             <div class="error" role="alert"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                 viewBox="0 0 17 17">
@@ -1130,12 +1131,20 @@
               </svg>
             </a>
           </div>
+
+          <button style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:2em;margin-top:3em"
+            id="checkout-button-sku_FhWrD7Qey2EtU2" role="link">
+            Test Stripe Checkout
+          </button>
+          <div id="error-message"></div>
+
           <div class="caption">
             <span data-tid="elements_examples.caption.no_charge" class="no-charge">Your card won't be charged</span>
-            <a href=".well-known/apple-developer-merchantid-domain-association">Apple stuff</a>
           </div>
         </div>
       </section>
+
+
     </main>
   </div>
 
@@ -1226,6 +1235,38 @@
 
       registerElements([card], "example5");
     })();
+  </script>
+
+  <script>
+    var stripe = Stripe('pk_test_rxymH2e01ccA11AQYB5RvC0i00fNasFr7w');
+
+    var checkoutButton = document.getElementById('checkout-button-sku_FhWrD7Qey2EtU2');
+    checkoutButton.addEventListener('click', function () {
+      // When the customer clicks on the button, redirect
+      // them to Checkout.
+      stripe.redirectToCheckout({
+          items: [{
+            sku: 'sku_FhWrD7Qey2EtU2',
+            quantity: 1
+          }],
+
+          // Do not rely on the redirect to the successUrl for fulfilling
+          // purchases, customers may not always reach the success_url after
+          // a successful payment.
+          // Instead use one of the strategies described in
+          // https://stripe.com/docs/payments/checkout/fulfillment
+          successUrl: 'https://goperdomo.github.io/applepay_test/success',
+          cancelUrl: 'https://goperdomo.github.io/applepay_test/canceled',
+        })
+        .then(function (result) {
+          if (result.error) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer.
+            var displayError = document.getElementById('error-message');
+            displayError.textContent = result.error.message;
+          }
+        });
+    });
   </script>
 
 </body>
