@@ -1255,8 +1255,8 @@
           // a successful payment.
           // Instead use one of the strategies described in
           // https://stripe.com/docs/payments/checkout/fulfillment
-          successUrl: 'https://goperdomo.github.io/applepay_test/success',
-          cancelUrl: 'https://goperdomo.github.io/applepay_test/canceled',
+          successUrl: 'http://applepaytesting.herokuapp.com/success',
+          cancelUrl: 'http://applepaytesting.herokuapp.com/canceled',
         })
         .then(function (result) {
           if (result.error) {
