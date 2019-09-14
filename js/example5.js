@@ -44,7 +44,7 @@
     country: "US",
     currency: "usd",
     total: {
-      amount: 100,
+      amount: 1000,
       label: "Total"
     },
     requestShipping: true,
